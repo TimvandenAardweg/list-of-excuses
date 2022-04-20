@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { excusesStore } from '../stores/excusesStore';
 import { userStore }  from '../stores/userStore'
 import { getExcuses, addExcuse } from '../services/apiService'
@@ -16,6 +16,12 @@ const tryGetExcuses = async () => {
     console.log(e);
   }
 }
+
+const sortedExcuses = computed(() => {
+  return excusesStore.excuses.sort( (a, b) => {
+    return b.count - a.count;
+  });
+});
 
 const tryAddExcuse = async() => {
   try {
@@ -36,7 +42,7 @@ onMounted(async() => await tryGetExcuses());
 <section class="excuses">
   <h1>Sellie's List of Excuses</h1>
 
-  <Excuse v-for="excuse in excusesStore.excuses" :excuse="excuse" :key="excuse._id" />
+  <Excuse v-for="(excuse, index) in sortedExcuses" :excuse="excuse" :index="index" :key="excuse._id" />
 
   <div class="add-container" v-if="userStore.user">
     <input type="text" placeholder="Add a new excuse" v-model="newExcuseText">

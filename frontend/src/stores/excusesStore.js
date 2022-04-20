@@ -10,5 +10,19 @@ export const excusesStore = reactive({
     },
     deleteExcuse(id) {
         this.excuses = this.excuses.filter(excuse => excuse._id !== id);
+    },
+    updateExcuseCount(id, count) {
+        this.excuses.forEach(excuse => {
+            if (excuse._id === id) {
+                excuse.count = count;
+            }
+        });
+    },
+    updateExcuseText(id, text) {
+        this.excuses.forEach(excuse => {
+            if (excuse._id === id) {
+                excuse.excuse = text;
+            }
+        });
     }
 });

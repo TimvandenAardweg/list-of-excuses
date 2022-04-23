@@ -42,7 +42,9 @@ onMounted(async() => await tryGetExcuses());
 <section class="excuses">
   <h1>Sellie's List of Excuses</h1>
 
-  <Excuse v-for="(excuse, index) in sortedExcuses" :excuse="excuse" :index="index" :key="excuse._id" />
+  <div class="excuse-list">
+    <Excuse v-for="(excuse, index) in sortedExcuses" :excuse="excuse" :index="index" :key="excuse._id" />
+  </div>
 
   <div class="add-container" v-if="userStore.user">
     <input type="text" placeholder="Add a new excuse" v-model="newExcuseText">
@@ -63,8 +65,15 @@ h1 {
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  height: 80%;
+  height: 100%;
   width: 40rem;
+}
+
+.excuse-list {
+  width: 100%;
+  margin-bottom: 5rem;
+  padding-bottom: 2rem;
+  overflow: auto;
 }
 
 .add-container {
@@ -88,6 +97,18 @@ h1 {
   font-weight: bold;
   font-size: larger;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .excuses {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin: 3rem 2rem 0 2rem;
+  }
 }
 
 </style>

@@ -44,12 +44,12 @@ onMounted(async() => await tryGetExcuses());
 
   <div class="excuse-list">
     <Excuse v-for="(excuse, index) in sortedExcuses" :excuse="excuse" :index="index" :key="excuse._id" />
+    <div class="add-container" v-if="userStore.user">
+      <input type="text" placeholder="Add a new excuse" v-model="newExcuseText">
+      <button @click="tryAddExcuse">Add excuse</button>
+    </div>
   </div>
-
-  <div class="add-container" v-if="userStore.user">
-    <input type="text" placeholder="Add a new excuse" v-model="newExcuseText">
-    <button @click="tryAddExcuse">Add excuse</button>
-  </div>
+  
 </section>
 </template>
 
